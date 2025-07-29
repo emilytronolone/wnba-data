@@ -1,1 +1,1 @@
-# emilytronolone.github.io
+# emilytronolone.github.io/wnba-data/
