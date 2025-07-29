@@ -1,1 +1,1 @@
-# [emilytronolone.github.io/wnba-data/](emilytronolone.github.io/wnba-data/)
+# [emilytronolone.github.io/wnba-data/](https://emilytronolone.github.io/wnba-data/)
