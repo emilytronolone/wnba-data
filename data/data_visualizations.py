@@ -33,9 +33,10 @@ def college_data():
        y_values = colleges['Count'].to_list()
        source = ColumnDataSource(data=dict(x_values = x_values, y_values = y_values))
        
-       p2 = figure(x_range = x_values, height = 500, width = 1000, toolbar_location = None, title = "Colleges with 2+ Players")
+       sorted_x = sorted(x_values, key=lambda x: y_values[x_values.index(x)], reverse = True)
+       p2 = figure(x_range = sorted_x, height = 500, width = 1000, toolbar_location = None, title = "Colleges with 2+ Players")
        p2.vbar(x = 'x_values', top = 'y_values', width = 1, source = source,
-              fill_color=factor_cmap('x_values', palette=plasma(28), factors=x_values))
+              fill_color=factor_cmap('x_values', palette=plasma(28), factors=sorted_x))
        p2.xaxis.major_label_orientation = pi/4
        p2.xgrid.grid_line_color = None
        p2.y_range.start = 0
@@ -63,13 +64,13 @@ def international_players_map():
 
        # Circling the coordinates.
        x = international['latitude'].to_list()
-       print(x)
+       # print(x)
        y = international['longitude'].to_list()
 
        # source = ColumnDataSource(data=dict(lat=latitude, lon=longitude))
 
        # m.scatter(x, y, size=5, fill_color="blue", fill_alpha=0.8)
-       m.circle(x=-100833, y=5211172, size=15, color='red')
+       # m.circle(x=-100833, y=5211172, size=15, color='red')
        # m.circle(x=-100833, y=3086289, size=15, color='blue')
        # m.circle(x=-9754910, y=5142738, size=15, color='orange')
        # m.circle(x=1999900, y=12738, size=15, color='green')
