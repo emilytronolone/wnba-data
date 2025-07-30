@@ -74,16 +74,3 @@ def etl_standings(list):
 
     df = pd.DataFrame.from_dict(updated_list)
     return df
-
-
-if __name__ == '__main__':
-    # individual player data
-    player_data_df = scrape_player_data()
-    # print(player_data_df.to_string())
-
-    # team standings
-    standings_df = scrape_standings()
-    # print(standings_df)
-
-    colleges = player_data_df.groupby('College').size()
-    print(colleges.to_string())
