@@ -109,4 +109,4 @@ if __name__ == '__main__':
               ('Where do WNBA players come from?', pn.panel(m))
        )
 
-       deck.show()
+       deck.save("../index.html", embed=True)
