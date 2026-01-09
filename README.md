@@ -20,26 +20,8 @@ This project analyzes WNBA player data to answer questions such as:
 - **Visualizations:**  
   Bokeh
   Panel
-- **VWeb Hostings:**  
+- **Web Hostings:**  
   GitHub Pages
-
----
-
-## Methodology
-
-1. **Data Cleaning:**  
-   - Standardized college and country names.
-   - Merged player data with country centroids for mapping.
-
-2. **Aggregation:**  
-   - Counted the number of players per college.
-   - Identified colleges with more than one WNBA player.
-   - Counted international players by country.
-
-3. **Visualization:**  
-   - Used Bokeh for interactive bar charts and maps.
-   - Combined visualizations into a Panel dashboard with tabs (slide-show interface).
-   - Exported the dashboard as a static HTML file for GitHub Pages.
 
 ---
 
@@ -52,7 +34,7 @@ This project analyzes WNBA player data to answer questions such as:
    Bar chart highlighting colleges that have produced more than one WNBA player.
 
 3. **Where do WNBA players come from?**  
-   Interactive world map showing the countries represented by international WNBA players.
+   Interactive world map showing the countries represented by WNBA players and by how many.
 
 ---
 
