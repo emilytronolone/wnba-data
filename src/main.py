@@ -16,4 +16,4 @@ if __name__ == "__main__":
         ("Where do WNBA players come from?", pn.panel(m)),
     )
 
-    deck.save("../index.html", embed=True)
+    deck.save("index.html", embed=True, title="WNBA Data")

@@ -30,16 +30,44 @@ def college_charts():
     colleges = (
         player_data_df.groupby(["College"])["College"].count().reset_index(name="Count")
     )
+
+    # combine first and last name into a single "Player" column
+    player_data_df["Player"] = (
+        player_data_df["First Name"] + " " + player_data_df["Last Name"]
+    )
+
+    # get player names for each college
+    college_players = (
+        player_data_df.groupby("College")["Player"]
+        .apply(
+            lambda x: ",<br>".join(
+                [", ".join(x[i : i + 3]) for i in range(0, len(x), 3)]
+            )
+        )
+        .reset_index(name="Players")
+    )
+
+    colleges = colleges.merge(college_players, on="College", how="left")
     x_values = colleges["College"].to_list()
     y_values = colleges["Count"].to_list()
-    source = ColumnDataSource(data=dict(x_values=x_values, y_values=y_values))
+    players = colleges["Players"].to_list()
+    source = ColumnDataSource(
+        data=dict(x_values=x_values, y_values=y_values, players=players)
+    )
+    tooltips = [
+        ("College", "@x_values"),
+        ("Players", "@players{safe}"),
+        ("Count", "@y_values"),
+    ]
 
+    # p1: all colleges
     p1 = figure(
         x_range=x_values,
-        height=500,
-        width=1000,
+        height=600,
+        width=18 * len(x_values),
         toolbar_location=None,
         title="All Colleges",
+        tooltips=tooltips,
     )
     p1.vbar(
         x="x_values",
@@ -53,9 +81,9 @@ def college_charts():
     p1.xaxis.major_label_orientation = math.pi / 4
     p1.xgrid.grid_line_color = None
     p1.y_range.start = 0
-    p1.y_range.end = 17
+    p1.y_range.end = max(y_values) + 1
 
-    # colleges where players > 1
+    # p2: colleges where players > 1
     colleges = colleges[colleges["Count"] > 1]
     x_values = colleges["College"].to_list()
     y_values = colleges["Count"].to_list()
@@ -81,7 +109,7 @@ def college_charts():
     p2.xaxis.major_label_orientation = math.pi / 4
     p2.xgrid.grid_line_color = None
     p2.y_range.start = 0
-    p2.y_range.end = 17
+    p2.y_range.end = max(y_values) + 1
 
     return p1, p2
 
@@ -98,7 +126,7 @@ def international_players_map():
     # hover data
     tooltips = [("Country", "@Country"), ("Players", "@Count")]
 
-    # Creating Map object
+    # creating map object
     m = figure(
         title="World Map",
         x_axis_type="mercator",
@@ -108,11 +136,10 @@ def international_players_map():
         tooltips=tooltips,
     )
 
-    # Adding tile
+    # adding tile
     m.add_tile("CartoDB Positron", retina=True)
 
-    # Coordinates
-
+    # coordinates
     x = [lon2x(lon) for lon in international["longitude"]]
     y = [lat2y(lat) for lat in international["latitude"]]
 
