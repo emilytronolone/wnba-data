@@ -87,7 +87,10 @@ def college_charts():
     colleges = colleges[colleges["Count"] > 1]
     x_values = colleges["College"].to_list()
     y_values = colleges["Count"].to_list()
-    source = ColumnDataSource(data=dict(x_values=x_values, y_values=y_values))
+    players = colleges["Players"].to_list()
+    source = ColumnDataSource(
+        data=dict(x_values=x_values, y_values=y_values, players=players)
+    )
 
     sorted_x = sorted(x_values, key=lambda x: y_values[x_values.index(x)], reverse=True)
     p2 = figure(
@@ -96,6 +99,7 @@ def college_charts():
         width=1000,
         toolbar_location=None,
         title="Colleges with 2+ Players",
+        tooltips=tooltips,
     )
     p2.vbar(
         x="x_values",
